@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default">get</button>
+        <button type="button" class="btn btn-default">post</button>
+        <button type="button" class="btn btn-default">put</button>
+        <button type="button" class="btn btn-default">delete</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        const btns = document.querySelectorAll("button");
+        //get request
+        btns[0].addEventListener('click',function(){
+            axios({
+                method:'GET',
+                url:'http://localhost:3000/posts/2',
+            })
+            .then(_=>{
+                console.log(_)
+            })
+        })
+        //post request (add new data)
+        btns[1].addEventListener('click',function(){
+            axios({
+                method:'POST',
+                url:'http://localhost:3000/posts',
+                //设置请内容
+                data:{
+                    title:'React',
+                    author:'FaceBooks'
+                }
+            })
+            .then(_=>{
+                console.log(_)
+            })
+        })
+        //put request
+        btns[2].addEventListener('click',function(){
+            axios({
+                method:'PUT',
+                url:'http://localhost:3000/posts/4',
+                data:{
+                    title:'nodeJs',
+                    author:'ES5&ES6'
+                }
+            })
+            .then(_=>{
+                console.log(_)
+            })
+        })
+        //delete request
+        btns[3].addEventListener('click',function(){
+            axios({
+                method:'DELETE',
+                url:'http://localhost:3000/posts/4',
+            })
+            .then(_=>{
+                console.log(_)
+            })
+        })
+    </script>
+</body>
+</html>
