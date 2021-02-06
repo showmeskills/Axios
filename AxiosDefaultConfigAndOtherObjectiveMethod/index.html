@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default">get</button>
+        <button type="button" class="btn btn-default">post</button>
+        <button type="button" class="btn btn-default">put</button>
+        <button type="button" class="btn btn-default">delete</button>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        const btns = document.querySelectorAll("button");
+        axios.defaults.method = 'GET';
+        axios.defaults.baseURL = 'http://localhost:3000/'
+        //axios.defaults.params = {id:2}
+        axios.defaults.timeout = 3000;
+        btns[0].addEventListener("click",function(){
+            axios({
+                url:'/comments/'
+            })
+            .then(_=>{
+                console.log(_)
+            })
+        });
+        btns[1].addEventListener('click',function(){
+            axios({
+                baseURL:'http://localhost:3000/',
+                url:'/comments',
+                timeout:5000,
+                method:'POST',
+                data:{
+                    "body": "Axios-default method",
+                    "postId": 3,
+                }
+            })
+            .then(_=>{
+                console.log(_)
+            })
+        })
+    </script>
+</body>
+</html>
