@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+         axios.interceptors.request.use(function(config){
+            console.log(`requestSuccessful - 1`)
+            console.log(config)
+            config.params = {id:1}
+            return config
+        },function(error){
+            console.log(`requestFailed - 1`)
+            return Promise.reject(error);
+        })
+
+        axios.interceptors.request.use(function(config){
+            console.log(`requestSuccessful - 1 - 2`)
+            config.timeout = 2000;
+            return config
+        },function(error){
+            console.log(`requestFailed - 2`)
+            return Promise.reject(error);
+        })
+
+    
+        axios.interceptors.response.use(function(response){
+            console.log(`responseSuccessful -1`)
+            console.log(response)
+            return response.data
+        },function(error){
+            console.log(`responseFailed -1`)
+            return Promise.reject(error)
+        })
+
+        axios.interceptors.response.use(function(response){
+            console.log(`responseSuccessful -2`)
+            return response
+        },function(error){
+            console.log(`responseFailed -2`)
+            return Promise.reject(error)
+        })
+       
+        axios({
+            method:'GET',
+            url:'http://localhost:3000/posts'
+        })
+        .then(_=>{
+            console.log(_)
+        })
+        .catch(_=>{
+            console.log(_)
+        })
+    </script>
+</body>
+</html>

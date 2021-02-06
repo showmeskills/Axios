@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>request data from different api</h1>
+    <button id="btn">getData</button>
+    <ul id="ul">
+
+    </ul>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const btn = document.getElementById("btn");
+        let ul = document.getElementById("ul");
+
+        const example = axios.create({
+            baseURL: "http://localhost:3000",
+            timeout:2000,
+        })
+        const instance = axios.create({
+            baseURL:'http://jsonplaceholder.typicode.com'
+        })
+        btn.addEventListener("click",async function (){
+            await example({
+                url:'/posts',
+                method:'GET',
+            })
+            .then(_=>{
+                createLi(_.data,_.config.baseURL)
+            });
+            await instance({
+                url:'/posts?_limit=5',
+                method:'GET',
+            })
+            .then(_=>{
+                createLi(_.data,_.config.baseURL)
+            })
+        });
+        function createLi(options,URL){
+        if(options){    
+            for(let i = 0; i < options.length;i++){
+                let li = document.createElement('li');
+                li.innerHTML = `${URL}:${options[i].id},${options[i].title}`;
+                ul.appendChild(li)
+            }
+        };
+
+    }
+    </script>
+</body>
+</html>
